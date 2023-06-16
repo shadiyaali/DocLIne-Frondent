@@ -28,11 +28,12 @@ function Login() {
       if (localResponse) {
         const decoded = jwt_decode(localResponse);
         console.log(decoded, 'decoded in login page');
+        console.log(decoded)
         
         if (decoded.is_admin) {
           navigate('/adminhome');
-        } else if (decoded.is_staff) {
-          navigate('/');
+        } else if (decoded.is_doctor) {
+          navigate('/doctorhome');
         } else if (state?.from) {
           navigate(state.from, { replace: true });
         } else {
@@ -83,7 +84,9 @@ function Login() {
                 type="submit"
                 value="LOGIN"
               />
+              
             </form>
+            <Link to="/forgotPassword"><button className=" text-xs text-blue-600 hover:underline" >Forgot Password?</button></Link>
             <p className="mt-3 text-blue ">
               Not yet registered..?
               <Link to="/register">

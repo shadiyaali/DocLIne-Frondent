@@ -23,5 +23,5 @@ module.exports = withMT({
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [  require("daisyui"),],
 })

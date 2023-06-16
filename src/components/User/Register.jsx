@@ -131,6 +131,7 @@ function Register() {
 
               <p className="text-black  margin-top :10" >
                 Already a member? <Link to="/login">Login</Link>
+                <Link to="/doctorApproval"><li className='px-1 list-none'></li><button className='px-4 py-2 bg-customColor mx-2 text-black shadow-xl rounded-xl'  >Become a Doctor</button></Link>
               </p>
             </form>
           </div>

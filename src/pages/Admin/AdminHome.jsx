@@ -1,12 +1,15 @@
 import React from 'react'
-import Sidebar from "../../components/Admin/Sidebar"
- 
+import Adminsidebar from "../../components/Admin/Adminsidebar"
+import { Outlet } from 'react-router-dom'; 
  
 
 function AdminHome() {
   return (
-    <div>
-      <Sidebar />
+    <div className="flex">
+      <Adminsidebar />
+      <div className="w-full overflow-hidden">
+      <Outlet />
+      </div>
       
   
     </div>

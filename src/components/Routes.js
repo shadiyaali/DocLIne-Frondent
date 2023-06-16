@@ -1,31 +1,44 @@
-import { Route,Routes,useLocation} from 'react-router-dom'
-import Login from "./User/Login"
-import Register from "./User/Register"
-import Doctorhome from "../pages/Doctor/Doctorhome"
-import Home from "../pages/User/Home"
-import DoctorApproval from '../pages/User/DoctorApproval' 
-import Appointment from "../pages/Doctor/Doctorhome"
- 
+import { Route, Routes, useLocation } from "react-router-dom";
+import Login from "./User/Login";
+import Register from "./User/Register";
+import Doctorhome from "../pages/Doctor/Doctorhome";
+import Home from "../pages/User/Home";
+import DoctorApproval from "../pages/User/DoctorApproval";
+import Appointment from "../components/Doctor/Appointment";
+import ScheduleAppointment from "../components/Doctor/ScheduleAppointment";
+import Dashboard from '../components/Doctor/Dashboard';
+import AdminHome from "../pages/Admin/AdminHome";
+import ADashboard from "../components/Admin/ADashboard"
+import Userlist from "../components/Admin/Userlist"
+import ForgetPassword from '../components/User/ForgotPassword';
+import ResetPassword from '../components/User/ResetPassword';
+import Doctorlist from "../components/Admin/Doctorlist";
 
 
 function Proutes() {
+  const location = useLocation();
+  return (
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" exact element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path='forgotPassword/' element ={<ForgetPassword/>}/>
+      <Route path='resetPassword/' element ={<ResetPassword/>}/>
+      <Route path="/doctorApproval" element={<DoctorApproval />} />
+      <Route path="/doctorhome/" element={<Doctorhome />}>
+        <Route path="" element={<Dashboard />} />
+        <Route path="appointment" element={<Appointment />} />
+        <Route path="scheduleappointment" element={<ScheduleAppointment />} />
+      </Route>
+      <Route path="/adminhome" element={<AdminHome />} >
+         <Route path="" element={<ADashboard />} />
 
-    const location = useLocation();
-    return (
-      <Routes location={location} key={location.pathname}>
-        <Route path='/' exact>
-        <Route path='/' exact Component={Home} />
-          <Route path='/login' Component={Login} />
-          <Route path='/register' Component={Register} />
-          
+         <Route path="userlist" element={<Userlist/>}/> 
+         <Route path="doctors" element={<Doctorlist/>}/> 
 
-          <Route path='/doctorhome' exact Component={Doctorhome} /> 
-           <Route path='doctorApproval/' element ={<DoctorApproval/>}/>
-           {/* <Route path=' /appointment' exact Component={Appointment}/>            */}
-        </Route>
-
-      </Routes>
-  )
+      </Route>
+    </Routes>
+  );
 }
 
-export default Proutes
+export default Proutes;

@@ -15,7 +15,9 @@ import {
   export default function DoctorApprovalForm() {
     const [departments, setDepartments] = useState([]);
     const navigate = useNavigate()
+    
 
+    
     const [address, setAddress] = useState('');
     const [department, setSpecialization] = useState('');
     const [experience, setExperience] = useState('');

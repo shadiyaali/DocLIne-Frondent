@@ -47,14 +47,14 @@ function NavBar() {
                 </span>
               </Link> */}
               {
-                user_auth ? (
-                  user_name.is_staff ? (
-                    <Link to="/doctor"><li className='px-1 list-none'></li><button className='px-4 py-2 bg-customColor mx-2 text-black shadow-xl rounded-xl'  >Doctor Dashboard</button></Link>
-                  ) : (
-                    <Link to="/doctorApproval"><li className='px-1 list-none'></li><button className='px-4 py-2 bg-customColor mx-2 text-black shadow-xl rounded-xl'  >Become a Doctor</button></Link>
+                // user_auth ? (
+                //   user_name.is_doctor ? (
+                //     <Link to="/doctor"><li className='px-1 list-none'></li><button className='px-4 py-2 bg-customColor mx-2 text-black shadow-xl rounded-xl'  >Doctor Dashboard</button></Link>
+                //   ) : (
+                //     <Link to="/doctorApproval"><li className='px-1 list-none'></li><button className='px-4 py-2 bg-customColor mx-2 text-black shadow-xl rounded-xl'  >Become a Doctor</button></Link>
 
-                  )
-                ):null
+                //   )
+                // ):null
               }
               
 

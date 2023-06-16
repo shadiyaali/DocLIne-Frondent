@@ -1,18 +1,18 @@
 import React from 'react';
 import Sidebar from '../../components/Doctor/Sidebar';
-import Dashboard from '../../components/Doctor/Dashboard';
-// import Appointment from '../../components/Doctor/Appointment';
+import Appointment from '../../components/Doctor/Appointment';
+import { Outlet } from 'react-router-dom';
 
-function Home() {
+function DHome() {
   return (
     <div className="flex">
       <Sidebar />
       <div className="w-full overflow-hidden"> {/* Add 'overflow-hidden' class to hide the scroll */}
-        <Dashboard />
-        {/* <Appointment /> */}
+        <Outlet />
+        
       </div>
     </div>
   );
 }
 
-export default Home;
+export default DHome;
