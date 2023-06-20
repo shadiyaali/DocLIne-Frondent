@@ -32,7 +32,7 @@ function Login() {
         
         if (decoded.is_admin) {
           navigate('/adminhome');
-        } else if (decoded.is_doctor) {
+        } else if (decoded.is_staff=== true) {
           navigate('/doctorhome');
         } else if (state?.from) {
           navigate(state.from, { replace: true });
@@ -79,17 +79,17 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <input
-                className="bg-black mt-7 h-11 w-5/12 rounded-full text-white"
-                type="submit"
-                value="LOGIN"
-              />
+             
+               <div to="/login" className="flex w-full justify-center">
+                 <button type="submit" className=" text-white p-3 bg-blue-800 rounded-2xl my-5  w-32">Login</button>
+               </div>
+               
               
             </form>
             <Link to="/forgotPassword"><button className=" text-xs text-blue-600 hover:underline" >Forgot Password?</button></Link>
             <p className="mt-3 text-blue ">
               Not yet registered..?
-              <Link to="/register">
+              <Link to="/register" className="text-blue-600">
                 SignUp
               </Link>
             </p>

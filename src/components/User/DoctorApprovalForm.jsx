@@ -81,9 +81,7 @@ import {
       
           // Check the response status code
           if (response.status === 201) {
-            // Success!
-            localStorage.removeItem('authToken')
-            navigate('/login',{state:{msg:"Pls login again to access the doctor dashboard"}})
+            toast.success("succefully sent  request .");
           } else {
             // Error!
             toast.error('Error creating doctor');
@@ -104,9 +102,7 @@ import {
     }
   
     useEffect(() => {
-    //   const localResponse = getLocal('authToken');
-    //   const decoded = jwt_decode(localResponse)
-    //   setUser(decoded.user_id)
+ 
       getDepartments();
     }, []);
   

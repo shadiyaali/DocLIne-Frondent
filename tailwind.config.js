@@ -15,7 +15,8 @@ module.exports = withMT({
         'customColor': '#93C4D1',
         'customColorA': '#18363E',
         'customColorB':'#3E88A5',
-        'customColorC':'#2D5F6E'
+        'customColorC':'#2D5F6E',
+        'green':'#00E892',
       },
       fontFamily: {
         sans: ['Source Sans Pro', 'sans-serif'],

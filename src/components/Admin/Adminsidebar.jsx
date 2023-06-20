@@ -39,10 +39,35 @@ export default function Sidebar() {
             </NavLink>
               
            
-            <NavLink to="doctors" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
-                <BiCategoryAlt size={50} className='px-3'></BiCategoryAlt>
-                <h3 className='font-semibold'>Doctors</h3>
-            </NavLink>
+            <div className="dropdown">
+  <label tabIndex={0} className="btn p-0 bg-transparent border-none w-full justify-start gap-0 text-[14px] capitalize" style={{ fontSize: '16px' }}>
+<SlGraduation size={50} className="px-3" />
+    Doctors
+  </label>
+  <ul
+    tabIndex={0}
+    className="dropdown-content menu p-2 shadow bg-white rounded-box w-52"
+  >
+    <li>
+      <NavLink
+        to="doctors"
+        className="text-black hover:bg-gray-100 flex place-items-center"
+      >
+        <SlGraduation size={50} className="px-3" />
+        <span>View Doctors</span>
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="doctorsrrequest"
+        className="text-black hover:bg-gray-100 flex place-items-center"
+      >
+        <SlGraduation size={50} className="px-3" />
+        <span>Doctor Requests</span>
+      </NavLink>
+    </li>
+  </ul>
+</div>
           
             <NavLink to="appointment" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
                 <HiOutlineDocumentText size={50} className='px-3'></HiOutlineDocumentText>

@@ -13,6 +13,9 @@ import Userlist from "../components/Admin/Userlist"
 import ForgetPassword from '../components/User/ForgotPassword';
 import ResetPassword from '../components/User/ResetPassword';
 import Doctorlist from "../components/Admin/Doctorlist";
+import DoctorRequest from "../components/Admin/DoctorRequest";
+import UserDoctor from "../pages/User/UserDoctor";
+import UserAppointment from "../components/User/UserAppointment";
 
 
 function Proutes() {
@@ -25,16 +28,22 @@ function Proutes() {
       <Route path='forgotPassword/' element ={<ForgetPassword/>}/>
       <Route path='resetPassword/' element ={<ResetPassword/>}/>
       <Route path="/doctorApproval" element={<DoctorApproval />} />
+      <Route path="/userdoctor" element={<UserDoctor />} />
+      <Route path="/userdoctor/userappointment" element={<UserAppointment/>}/>
+      
+
       <Route path="/doctorhome/" element={<Doctorhome />}>
         <Route path="" element={<Dashboard />} />
         <Route path="appointment" element={<Appointment />} />
         <Route path="scheduleappointment" element={<ScheduleAppointment />} />
       </Route>
+
       <Route path="/adminhome" element={<AdminHome />} >
          <Route path="" element={<ADashboard />} />
 
          <Route path="userlist" element={<Userlist/>}/> 
          <Route path="doctors" element={<Doctorlist/>}/> 
+         <Route path="doctorsrrequest" element={<DoctorRequest/>}/> 
 
       </Route>
     </Routes>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import userAvatar from "../../images/download.jpeg";
 import { BASE_URL } from '../../utils/config';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function UsersList() {
   const [users, setUsers] = useState([]);
@@ -19,7 +21,13 @@ function UsersList() {
     try {
       const updatedUsers = users.map((user) => {
         if (user.id === id) {
-          return { ...user, is_active: !user.is_active };
+          const updatedUser = { ...user, is_active: !user.is_active };
+          if (updatedUser.is_active) {
+            toast.success('Unblocked successfully');
+          } else {
+            toast.success('Blocked successfully');
+          }
+          return updatedUser;
         }
         return user;
       });
@@ -29,9 +37,9 @@ function UsersList() {
       console.log(response.data);
     } catch (error) {
       console.error('Error blocking/unblocking user:', error);
+      toast.error('Error blocking/unblocking user'); // Display error toast message
     }
   }
-  
   
   
   
@@ -39,7 +47,6 @@ function UsersList() {
   useEffect(() => {
     getUsers();
   }, []);
-
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -68,7 +75,7 @@ function UsersList() {
           </thead>
           <tbody className="text-center">
             {users.map((user, index) => (
-              <tr key={index} className="bg-white"style={{ paddingBottom: '0.5rem' }}>
+              <tr key={index} className="bg-white" style={{ paddingBottom: '0.5rem' }}>
                 <td className="px-4 py-2 border-b">
                   <div className="flex items-center justify-center">
                     <img
@@ -79,41 +86,46 @@ function UsersList() {
                   </div>
                 </td>
                 <td className="px-4 py-2 border-b">
-                  <div className="flex items-center justify-center">
-                    <p className="font-medium">{user.first_name}</p>
-                  </div>
-                </td>
-                <td className="px-4 py-2 border-b">{user.email}</td>
-                <td className="px-4 py-2 border-b">{user.phone_number}</td>
-                <td className="px-4 py-2 border-b">
-                  {user.is_active ? (
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
-                      Active
-                    </span>
-                  ) : (
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
-                      Inactive
-                    </span>
-                  )}
-                </td>
-                <td className="px-4 py-2 border-b">
-                  <button
-                    className={`${
-                      user.is_active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
-                    } px-4 py-2 text-sm font-medium text-white rounded-lg`}
-                    onClick={() => changeStatus(user.id)}
-                  >
-                    {user.is_active ? 'Block' : 'Unblock'}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      
-      </div>
+  <div className="flex items-center justify-center">
+    <p className="font-medium">{user.first_name}</p>
+  </div>
+</td>
+<td className="px-4 py-2 border-b">{user.email}</td>
+<td className="px-4 py-2 border-b">{user.phone_number}</td>
+<td className="px-4 py-2 border-b">
+  {user.is_active ? (
+    <span className="inline-block px-2 py-1 text-xs font-semibold  text-light-green-800 bg-green rounded-full">
+      Active
+    </span>
+  ) : (
+    <span className="inline-block px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
+      Inactive
+    </span>
+  )}
+</td>
+<td className="px-4 py-2 border-b">
+  <button
+    className={`${
+      user.is_active ? 'bg-red-500 hover:bg-red-600' : 'bg-light-green-800 hover:bg-light-green-800'
+    } px-4 py-2 text-sm font-medium text-white rounded-lg`}
+    onClick={() => {
+      if (window.confirm('Are you sure you want to block/unblock this user?')) {
+        changeStatus(user.id);
+      }
+    }}
+  >
+    {user.is_active ? 'Block' : 'Unblock'}
+  </button>
+</td>
+</tr>
+))}
+</tbody>
+</table>
+</div>
+<ToastContainer /> {/* Add ToastContainer component from react-toastify */}
+</div>
 );
-                }
+}
 
 export default UsersList;
+

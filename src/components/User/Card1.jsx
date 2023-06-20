@@ -26,15 +26,15 @@ function Department() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold text-center">
-      <hr className="border-b-2 border-blue-gray-200 mt-4 mb-10"/>
-        <span className="border-b- border-blue-500 pb-2 mt-15 mr-4">OUR</span>  DEPARTMENTS
+      <h1 className="text-3xl font-bold text-center  text-teal-600 ">
+      
+        <span className="border-b-  pb-2 mt-15 mr-4">TOP</span>  DEPARTMENTS
       </h1>
       
       <div className="grid mt-20 grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
      
         {departments.map((department) => (
-          <Card key={department.id} className="w-auto flex-col justify-center shadow-md hover:shadow-lg border-2 border-blue-200 p-4">
+          <Card key={department.id} className="w-auto flex-col justify-center shadow-md hover:shadow-lg border-2 border-teal-600 B p-4">
             <div className="flex justify-center w-40 h-40">
               <img
                 src={`${BASE_URL + department.image}`}

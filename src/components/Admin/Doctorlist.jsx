@@ -13,34 +13,25 @@ function DoctorList() {
       const response = await axios.get(`${BASE_URL}/api/doctors/`);
       setDoctors(response.data);
       console.log(response.data);
+      
     } catch (error) {
       console.error('Error fetching doctors:', error);
     }
   }
 
-  async function changeStatus(id) {
-    try {
-      const updatedDoctors = doctors.map((doctor) => {
-        if (doctor.id === id) {
-          return { ...doctor, is_active: !doctor.is_active };
-        }
-        return doctor;
-      });
-      setDoctors(updatedDoctors);
-
-      const response = await axios.patch(`${BASE_URL}/api/blockdoctor/${id}/`);
-      console.log(response.data);
-
-      toast.success(response.data.msg); // Display success toast message
-    } catch (error) {
-      console.error('Error blocking/unblocking doctor:', error);
-      toast.error('Error blocking/unblocking doctor'); // Display error toast message
-    }
+  const changeStatus = (id) => {
+    axios.get(`${BASE_URL}/api/blockdoctor/${id}`)
+    .then(()=>getDoctors())
   }
+  
+  
 
   useEffect(() => {
     getDoctors();
   }, []);
+ 
+
+ 
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -68,8 +59,8 @@ function DoctorList() {
             </tr>
           </thead>
           <tbody className="text-center">
-            {doctors.map((doctor, index) => (
-              <tr key={index} className="bg-white" style={{ paddingBottom: '0.5rem' }}>
+          {doctors.map((doctor) => (
+            <tr key={doctor.id} className="bg-white" style={{ paddingBottom: '0.5rem'}}>
                 <td className="px-4 py-2 border-b">
                   <div className="flex items-center justify-center">
                     <img
@@ -81,35 +72,40 @@ function DoctorList() {
                 </td>
                 <td className="px-4 py-2 border-b">
                   <div className="flex items-center justify-center">
-                  <p className="font-medium">Dr.{doctor.first_name}</p>
+                  <p className="font-medium">Dr.{doctor.user.first_name}</p>
                   </div>
                 </td>
-                <td className="px-4 py-2 border-b">{doctor.email}</td>
-                <td className="px-4 py-2 border-b">{doctor.phone_number}</td>
+                <td className="px-4 py-2 border-b">{doctor.user.email}</td>
+                <td className="px-4 py-2 border-b">{doctor.user.phone_number}</td>
                 <td className="px-4 py-2 border-b">
-                  {doctor.is_active ? (
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
-                      Active
-                    </span>
-                  ) : (
+                  {doctor.is_blocked ? (
                     <span className="inline-block px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
                       Inactive
+                    </span>
+                    
+                  ) : (
+                    <span className="inline-block px-2 py-1 text-xs font-semibold text-light-green-800 bg-green rounded-full">
+                      Active
                     </span>
                   )}
                 </td>
                 <td className="px-4 py-2 border-b">
-                  <button
-                    className={`${
-                      doctor.is_active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
-                    } px-4 py-2 text-sm font-medium text-white rounded-lg`}
-                    onClick={() => {
-                      if (window.confirm('Are you sure you want to block/unblock this doctor?')) {
-                        changeStatus(doctor.id);
-                      }
-                    }}
-                  >
-                    {doctor.is_active ? 'Block' : 'Unblock'}
-                  </button>
+                <button
+  className={`${
+    doctor.is_blocked ? 'bg-light-green-800 hover:bg-light-green-800 ' : 'bg-red-600'
+  } px-4 py-2 text-sm font-medium text-white rounded-lg`}
+  onClick={() => {
+    if (window.confirm('Are you sure you want to block/unblock this doctor?')) {
+      changeStatus(doctor.id);
+    }
+  }}
+>
+  {doctor.is_blocked ? 'Unblock' : 'Block'}
+</button>
+
+
+
+
                 </td>
               </tr>
             ))}

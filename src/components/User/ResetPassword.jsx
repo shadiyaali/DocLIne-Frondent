@@ -69,11 +69,9 @@ const ResetPassword = () => {
                 
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <input
-                className="bg-black mt-7 h-11 w-5/12 rounded-full text-white"
-                type="submit"
-                value="Submit"
-              />
+             <div to="/login" className="flex w-full justify-center">
+                 <button type="submit" className=" text-white p-3 bg-blue-800 rounded-2xl my-5  w-32">Submit</button>
+               </div>
               
               
             </form>

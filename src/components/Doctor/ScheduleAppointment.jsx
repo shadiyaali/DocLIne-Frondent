@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { getLocal } from '../../helpers/auth';
 import { toast, Toaster } from 'react-hot-toast';
+import { BASE_URL } from "../../utils/config";
+import jwt_decode from 'jwt-decode';
+import { getLocal } from '../../helpers/auth';
 
 const AppointmentSchedule = () => {
   const [doctor, setDoctor] = useState('');
@@ -12,44 +13,28 @@ const AppointmentSchedule = () => {
   const [status, setStatus] = useState(true);
   const [slotDuration, setSlotDuration] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
-
-  useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const localResponse = getLocal('authToken');
-        const response = jwtDecode(localResponse);
-        if (response && response.user_id) {
-          setDoctor(response.user_id);
-        } else {
-          throw new Error('Invalid token');
-        }
-      } catch (error) {
-        console.error(error);
-        // Handle token error (e.g., redirect to login, show error message)
-      }
-    };
-
-    fetchDoctor();
-  }, []);
+  const user_auth = getLocal('authToken');
+  const user_name = user_auth ? jwt_decode(user_auth) : null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const slotData = {
-      doctor,
+    const formData = {
       date,
       start_time: startTime,
       end_time: endTime,
       status,
-      slot_duration: slotDuration,
+      slot_duration: parseInt(slotDuration),
+      doctor : user_name ? user_name.user_id : '',
     };
 
     try {
-      const response = await axios.post('/doctor/scheduleappointment/', slotData);
+      const response = await axios.post(`${BASE_URL}/api/scheduleappointment/`, formData);
       console.log(response.data);
       toast.success('Slot created successfully');
     } catch (error) {
       console.error(error);
+      console.log(error.response.data);
       toast.error('Failed to create slot');
     }
   };
@@ -127,9 +112,7 @@ const AppointmentSchedule = () => {
               onChange={(e) => setStatus(e.target.checked)}
               className="mr-2"
             />
-            <label htmlFor="status" className="text-gray-700">
-              Active
-            </label>
+             
           </div>
           <button
             type="submit"
@@ -142,7 +125,7 @@ const AppointmentSchedule = () => {
     </div>
   );
   
-  }  
+  };  
 
-export default AppointmentSchedule;
+   export default AppointmentSchedule;
 
