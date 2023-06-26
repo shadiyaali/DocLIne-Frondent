@@ -6,7 +6,7 @@ import { BASE_URL } from "../../utils/config";
 import login, { getLocal } from "../../helpers/auth";
 
 
-import Loginimage from "../../images/Image1.jpg";
+import registerImage from "../../images/register.jpg";
 import jwt_decode from 'jwt-decode';
 
 function Login() {
@@ -51,20 +51,20 @@ function Login() {
   };
 
   return (
-    <div className="bg- white h-screen w-screen flex items-center justify-center">
+    <div className= " h-screen w-screen flex items-center justify-center ">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="h-5/6 w-10/12 flex flex-row bg-white  rounded-3xl">
-        <div className="h-full w-3/6 flex items-center justify-center">
-          <img src={Loginimage} alt="Login" />
+      <div className="h-5/6 w-11/12 rounded-2xl shadow-2xl flex flex-row bg-teal-100">
+      <div className=" flex flex-1 rounded-tl-2xl h-full w-full rounded-bl-2xl items-center bg-white justify-center  ">
+      <img src={registerImage} className="w-full h-full rounded-tl-2xl rounded-bl-2xl"  alt="Register" />
         </div>
-        <div className="h-full w-3/6 flex items-center justify-center">
-          <div className="bg-white h-5/6 w-4/6 rounded-3xl">
-            <h1 className="font-serif text-3xl text-custom-black mt-24 px-24 font-bold">
-              USER LOGIN
+        <div className="h-full w-3/6 flex flex-1 items-center justify-center">
+          <div className="bg-blue h-5/6 w-4/6 mb-20">
+            <h1 className="font-bold text-3xl text-center text-teal-800 mt-4 px-24 ">
+              login
             </h1>
             <form onSubmit={handleSubmit}>
               <input
-                className="bg-white h-12 w-11/12 border-2 rounded-full mt-7 placeholder-black-300  font-bold outline-none text-black px-6"
+                className="bg-white h-12 w-full border-2  mt-7 placeholder-black-300  font-bold outline-none text-black px-6"
                 type="email"
                 name="email"
                 placeholder="email"
@@ -72,7 +72,7 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
-                className="bg-white h-12 w-11/12 border-2 rounded-full mt-7 placeholder-black-300 font-bold outline-none text-black px-6"
+                className="bg-white h-12 w-full border-2  mt-7 placeholder-black-300 font-bold outline-none text-black px-6"
                 type="password"
                 name="password"
                 placeholder="password"
@@ -80,13 +80,13 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
              
-               <div to="/login" className="flex w-full justify-center">
-                 <button type="submit" className=" text-white p-3 bg-blue-800 rounded-2xl my-5  w-32">Login</button>
+             <div to="/login" className="flex w-full justify-center">
+                 <button type="submit" className=" text-white p-3  bg-teal-600 hover:bg-teal-800  my-6  w-full ">Login</button>
                </div>
                
               
             </form>
-            <Link to="/forgotPassword"><button className=" text-xs text-blue-600 hover:underline" >Forgot Password?</button></Link>
+            <Link to="/forgotPassword"><button className=" text-lg text-blue-600 hover:underline" >Forgot Password?</button></Link>
             <p className="mt-3 text-blue ">
               Not yet registered..?
               <Link to="/register" className="text-blue-600">

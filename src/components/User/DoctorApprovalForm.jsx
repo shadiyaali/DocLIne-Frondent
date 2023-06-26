@@ -11,6 +11,8 @@ import {
   import jwt_decode from 'jwt-decode';
   import { BASE_URL } from "../../utils/config";
   import { useNavigate } from "react-router-dom";
+  import registerImage from "../../images/doctor.png";
+
   
   export default function DoctorApprovalForm() {
     const [departments, setDepartments] = useState([]);
@@ -109,13 +111,19 @@ import {
    
   
     return (
-        <div className="flex justify-center items-center h-screen bg-grey">
-          <Toaster position="top-center" reverseOrder={false} limit={1} />
-          <Card color="white" shadow={false} className="border-2 border-black p-4 w-96 ">
-            <Typography variant="h4" color="gray-800" className="font-serif mt-2">
-              FILL THE FORM
-            </Typography>
-            <form className="mt-8 space-y-4" onSubmit={createDoctor}>
+         
+      <div className= " h-screen w-screen flex items-center justify-center mb-20">
+      <Toaster position="top-center" reverseOrder={false} />
+      <div className="h-5/6 w-11/12 rounded-2xl shadow-2xl flex flex-row bg-white">
+        <div className=" flex flex-1 rounded-tl-2xl h-full w-full rounded-bl-2xl items-center bg-teal-100 justify-center ">
+          <img src={registerImage} className="w-full h-full rounded-tl-2xl rounded-bl-2xl"  alt="Register" />
+        </div>
+         <div className="h-full w-3/6 flex items-center justify-center">
+          <div className="bg-blue h-5/6 w-4/6 mb-20">
+            <h1 className="font-bold text-3xl text-teal-800 mt-4 px-24 ">
+              Fill The Form
+            </h1>
+            <form className="h-12 w-full mt-10 space-y-7"  onSubmit={createDoctor}>
               <Input
                 size="regular"
                 label="Address"
@@ -127,7 +135,7 @@ import {
     
               <div className="relative">
                 <select
-                  className="w-full py-2 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full bg-transparent  outline outline-blue-gray-100 py-3 rounded-md "
                 //   label="specialization"
                 //   value={specialization}
                   onChange={(e) => setSpecialization(e.target.value)}
@@ -170,12 +178,13 @@ import {
                 onChange={(e) => setCertificate(e.target.files[0])}
               />
     
-              <Button className="w-full p-3 bg-indigo-500" type="submit">
+              <Button className="w-full p-3 bg-teal-600 hover:bg-teal-800" type="submit">
                 Request
               </Button>
             </form>
-          </Card>
+            </div>
         </div>
-      );
-    }   
-  
+      </div>
+    </div>
+  );
+}

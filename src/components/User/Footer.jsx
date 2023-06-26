@@ -19,10 +19,10 @@ const currentYear = new Date().getFullYear();
  
  function Footer() {
   return (
-    <footer className="relative w-full bg-gray-600 text-green  mt-28" >
+    <footer className="relative w-full bg-teal-100" >
       <div className="mx-auto w-full max-w-7xl px-8 ">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2 ">
-          <Typography variant="h5" className="mt-8 font-bold text-3xl">
+          <Typography variant="h5" className="mt-8 font-extrabold text-4xl">
             DocLine
           </Typography>
           <div className="grid grid-cols-3 justify-between gap-4 mt-5 ">
@@ -31,7 +31,7 @@ const currentYear = new Date().getFullYear();
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="mb-3 font-bold text-lg opacity-40  text-white"
+                  className="mb-3 font-bold text-lg   text-teal-800"
                 >
                   {title}
                 </Typography>
@@ -41,7 +41,7 @@ const currentYear = new Date().getFullYear();
                       as="a"
                       href="#"
                       color="gray"
-                      className="py-1.5 font-normal transition-colors text-white"
+                      className="py-1.5 font-normal transition-colors text-teal-600"
                     >
                       {link}
                     </Typography>
@@ -54,7 +54,7 @@ const currentYear = new Date().getFullYear();
         <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <Typography
             variant="small"
-            className="mb-4 text-center font-normal text-white md:mb-0"
+            className="mb-4 text-center font-normal text-black md:mb-0"
           >
             &copy; {currentYear} <a href="https://material-tailwind.com/">DocLine</a>. All
             Rights Reserved.

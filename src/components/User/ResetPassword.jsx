@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
-import Loginimage from "../../images/Image1.jpg";
+import registerImage from "../../images/register.jpg";
  
 
 const ResetPassword = () => {
@@ -42,27 +42,27 @@ const ResetPassword = () => {
   }
     
   return (
-    <div className="bg- white h-screen w-screen flex items-center justify-center">
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="h-5/6 w-10/12 flex flex-row bg-white  rounded-3xl">
-        <div className="h-full w-3/6 flex items-center justify-center">
-          <img src={Loginimage} alt="Login" />
+    <div className= " h-screen w-screen flex items-center justify-center ">
+    <Toaster position="top-center" reverseOrder={false} />
+    <div className="h-5/6 w-11/12 rounded-2xl shadow-2xl flex flex-row bg-teal-100">
+      <div className=" flex flex-1 rounded-tl-2xl h-full w-full rounded-bl-2xl items-center bg-white justify-center ">
+        <img src={registerImage} className="w-full h-full rounded-tl-2xl rounded-bl-2xl"  alt="Register" />
         </div>
-        <div className="h-full w-3/6 flex items-center justify-center">
-          <div className="bg-white h-5/6 w-5/6 rounded-3xl" >
-            <h1 className="font-serif text-3xl text-custom-black mt-24 px-24 font-bold">
-              Reset Password
+        <div className="h-full w-3/6 flex flex-1 items-center justify-center">
+                  <div className="bg-blue h-5/6 w-4/6 mb-20">
+                    <h1 className="font-bold text-3xl text-center text-teal-800 mt-4 px-24 ">
+              Reset password
             </h1>
             <form onSubmit={handleSubmit}>
               <input
-                className="bg-white h-12 w-11/12 border-2 rounded-full mt-7 placeholder-black-300  font-bold outline-none text-black px-6"
+                className="bg-white h-12 w-full border-2  mt-7 placeholder-black-300  font-bold outline-none text-black px-6"
                 type="password"
                 name="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
                <input
-                className="bg-white h-12 w-11/12 border-2 rounded-full mt-7 placeholder-black-300  font-bold outline-none text-black px-6"
+                className="bg-white h-12 w-full border-2  mt-7 placeholder-black-300  font-bold outline-none text-black px-6"
                 type="password"
                 name="password"
                 placeholder="Confirm Password"
@@ -70,7 +70,7 @@ const ResetPassword = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
              <div to="/login" className="flex w-full justify-center">
-                 <button type="submit" className=" text-white p-3 bg-blue-800 rounded-2xl my-5  w-32">Submit</button>
+                 <button type="submit" className=" text-white p-3 bg-teal-600 hover:bg-teal-800  my-6  w-full ">Submit</button>
                </div>
               
               

@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { BASE_URL } from "../../utils/config";
-import registerImage from "../../images/Image1.jpg";
+import registerImage from "../../images/register.jpg";
 import axios from "axios";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Input,
+  Checkbox,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -61,29 +71,30 @@ function Register() {
 
   return (
         
-        <div className="bg-r h-screen w-screen flex items-center justify-center">
+        <div className= " h-screen w-screen flex items-center justify-center ">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="h-5/6 w-10/12 flex flex-row bg-white">
-        <div className="h-full w-3/6 flex items-center justify-center">
-          <img src={registerImage} alt="Register" />
+      <div className="h-5/6 w-11/12 rounded-2xl shadow-2xl flex flex-row bg-teal-100">
+        <div className=" flex flex-1 rounded-tl-2xl h-full w-full rounded-bl-2xl items-center bg-white justify-center ">
+          <img src={registerImage} className="w-full h-full rounded-tl-2xl rounded-bl-2xl"  alt="Register" />
         </div>
-        <div className="h-full w-3/6 flex items-center justify-center">
-          <div className="bg-blue h-5/6 w-4/6">
-            <h1 className="font-bold text-3xl text-black mt-4 px-24 font-bold">
-              SIGNUP
+        <div className="h-full w-3/6 flex flex-1 items-center justify-center">
+          <div className="bg-blue h-5/6 w-4/6 mb-20">
+            <h1 className="font-bold text-3xl text-center text-teal-800 mt-4 px-24 ">
+              Register
             </h1>
             <form className="login-input" onSubmit={handleSubmit}>
              
               <input
-                className="bg-white h-10 w-11/12 border-2 rounded-full mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
+                className=" h-12 w-full border-2  mt-5 placeholder-black-300 font-bold outline-none text-black px-3"
                 type="text"
+                variant="standard"
                 name="first_name"
                 placeholder="First Name"
                 value={first_name}
                 onChange={handleChange}
               />
               <input
-                className="bg-white h-10 w-11/12 border-2 rounded-full mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
+                className="  h-12 w-full border-2  mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
                 type="text"
                 name="last_name"
                 placeholder="Last Name"
@@ -91,7 +102,7 @@ function Register() {
                 onChange={handleChange}
               />
                <input
-                className="bg-white h-10 w-11/12 border-2 rounded-full mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
+                className=" h-12 w-full border-2  mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -100,7 +111,7 @@ function Register() {
               />
               <input
                
-                className="bg-white h-10 w-11/12 border-2 rounded-full mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
+                className=" h-12 w-full border-2  mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
                 type="text"
                 name="phone_number"
                 placeholder="Phone Number"
@@ -108,7 +119,7 @@ function Register() {
                 onChange={handleChange}
               />
               <input
-                className="bg-white h-10 w-11/12 border-2 rounded-full mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
+                className=" h-12 w-full border-2  mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -116,7 +127,7 @@ function Register() {
                 onChange={handleChange}
               />
               <input
-                className="bg-white h-10 w-11/12 border-2 rounded-full mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
+                className=" h-12 w-full border-2  mt-5 placeholder-black-300 font-bold outline-none text-black px-6"
                 type="password"
                 name="password2"
                 placeholder="Confirm Password"
@@ -124,10 +135,10 @@ function Register() {
                 onChange={handleChange}
               />
             <div to="/login" className="flex w-full justify-center">
-                 <button type="submit" className=" text-white p-3 bg-blue-800 rounded-2xl my-5  w-32">Register</button>
+                 <button type="submit" className=" text-white p-3 bg-teal-600 hover:bg-teal-800  my-6  w-full ">Register</button>
                </div>
 
-              <p className="text-black  margin-top :10 "  >
+              <p className="text-blue-600  margin-top :10"  >
                 Already a member? <Link to="/login">Login</Link>
                  
               </p>

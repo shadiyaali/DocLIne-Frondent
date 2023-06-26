@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardBody, Typography } from "@material-tailwind/react";
+import { Card, CardBody, Typography,CardHeader } from "@material-tailwind/react";
 import { BASE_URL } from "../../utils/config";
 import { Carousel } from "@material-tailwind/react";
  
@@ -25,29 +25,32 @@ function Department() {
   }
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold text-center  text-teal-600 ">
+    <div className="container mx-auto p-8 shadow-xl bg-gray-200 ">
+      <h1 className="text-3xl font-bold text-center  text-teal-600  ">
       
-        <span className="border-b-  pb-2 mt-15 mr-4">TOP</span>  DEPARTMENTS
+        <span className="border-b-  pb-2 mt-15 mr-4">Our Main</span>Departments
       </h1>
       
       <div className="grid mt-20 grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
      
         {departments.map((department) => (
-          <Card key={department.id} className="w-auto flex-col justify-center shadow-md hover:shadow-lg border-2 border-teal-600 B p-4">
-            <div className="flex justify-center w-40 h-40">
-              <img
-                src={`${BASE_URL + department.image}`}
-                alt={department.name}
-                className="ms-10 rounded-full object-cover"
-              />
-            </div>
-            <CardBody className="text-center">
-              <Typography variant="h4" color="blue-gray" className="mb-2">
-                {department.name}
-              </Typography>
-            </CardBody>
-          </Card>
+        <Card key={department.id} className="w-auto flex-col justify-center shadow-lg hover:shadow-lg border-2 p-4">
+        <CardHeader className="relative h-56">
+          <img
+            src={`${BASE_URL + department.image}`}
+            alt={department.name}
+            className="h-full w-full object-cover"
+          />
+        </CardHeader>
+        <CardBody className="text-center">
+          <Typography variant="h5" color="blue-gray" className="mb-3 font-bold">
+            {department.name}
+          </Typography>
+           
+        </CardBody>
+      </Card>
+      
+       
        
         ))}
        
