@@ -32,7 +32,7 @@ function Login() {
         
         if (decoded.is_admin) {
           navigate('/adminhome');
-        } else if (decoded.is_staff=== true) {
+        } else if (decoded.is_staff === true) {
           navigate('/doctorhome');
         } else if (state?.from) {
           navigate(state.from, { replace: true });

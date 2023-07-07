@@ -26,9 +26,12 @@ useEffect(()=>{
 
       // we will send the response we've got from razorpay to the backend to validate the payment
       bodyData.append("response", JSON.stringify(response));
+      bodyData.append("slot",bookedSlot.id);
+      bodyData.append("user",user);
+
 
       await Axios({
-        url: `${BASE_URL}/razorpay/payment/success/`,
+        url: `${BASE_URL}/razorpay/paysuccess/`,
         method: "POST",
         data: bodyData,
         headers: {
@@ -38,7 +41,7 @@ useEffect(()=>{
       })
         .then((res) => {
           console.log("Everything is OK!");
-          history('/succes')
+          history('/success')
 
 
        

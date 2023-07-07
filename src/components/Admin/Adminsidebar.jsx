@@ -69,14 +69,14 @@ export default function Sidebar() {
   </ul>
 </div>
           
-            <NavLink to="appointment" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
+            <NavLink to="adminappointment" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
                 <HiOutlineDocumentText size={50} className='px-3'></HiOutlineDocumentText>
                 <h3 className='font-semibold'>Appointments</h3>
             </NavLink>
             {/* <hr className="border-b-2 border-blue-gray-200 mt-4 mb-10"/> */}
-            <NavLink to="/profile" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
+            <NavLink to="admindepartment" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
                 <AiOutlineUser size={50} className='px-3 '></AiOutlineUser>
-                <h3 className='font-semibold '>profile</h3>
+                <h3 className='font-semibold '>Department</h3>
             </NavLink>
             <div className="flex place-items-center h-10 my-2 cursor-pointer" onClick={()=>{adminLogout()}}>
                 <CiLogout size={50} className='px-3 text-primaryBlue'></CiLogout>

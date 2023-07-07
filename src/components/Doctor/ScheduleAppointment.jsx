@@ -19,22 +19,42 @@ const AppointmentSchedule = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const selectedDate = new Date(date);
+    const currentDate = new Date();
+
+    if (selectedDate < currentDate) {
+      toast.error('Please select a future date');
+      return;
+    }
+
+    if (startTime >= endTime) {
+      toast.error('End time should be after the start time');
+      return;
+    }
+
     const formData = {
       date,
       start_time: startTime,
       end_time: endTime,
       status,
       slot_duration: parseInt(slotDuration),
-      doctor : user_name ? user_name.user_id : '',
+      doctor: user_name ? user_name.user_id : '',
     };
 
     try {
       const response = await axios.post(`${BASE_URL}/api/scheduleappointment/`, formData);
-      console.log(response.data);
-      toast.success('Slot created successfully');
+
+      if (response.status === 201) {
+        console.log(response.data);
+        toast.success('Slot created successfully');
+      } else {
+        toast.error('Failed to create slot');
+      }
     } catch (error) {
       console.error(error);
-      console.log(error.response.data);
+      if (error.response && error.response.data) {
+        console.log(error.response.data);
+      }
       toast.error('Failed to create slot');
     }
   };
@@ -88,44 +108,52 @@ const AppointmentSchedule = () => {
                 id="endTime"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="w-full border border-gray-300 rounded-md py-2 px-3 text-sm text-gray-700 focus:outline-none focus:border-blue-500"
+                className="w-full border border-gray-300 rounded-md py-2 px-3 text-sm text-black-600 focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
+          <div className="flex items-center">
+            {/* <button
+              type="button"
+              onClick={handleAddDate}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+            >
+              Add Date
+            </button> */}
+            <p className="ml-4 text-sm text-gray-500">Selected Dates: {selectedDates.join(', ')}</p>
+          </div>
           <div className="flex flex-col">
             <label htmlFor="slotDuration" className="block font-bold mb-1">
-              Time Duration in minutes:
+              Slot Duration (minutes):
             </label>
             <input
               type="number"
               id="slotDuration"
               value={slotDuration}
               onChange={(e) => setSlotDuration(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
             />
           </div>
           <div className="flex items-center">
-            <input
+            {/* <input
               type="checkbox"
               id="status"
               checked={status}
               onChange={(e) => setStatus(e.target.checked)}
-              className="mr-2"
-            />
-             
+              className="form-checkbox h-4 w-4 text-blue-600"
+            /> */}
+            
           </div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded float-right"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
           >
-            Submit
+            Create Slot
           </button>
         </form>
       </div>
     </div>
   );
-  
-  };  
+};
 
-   export default AppointmentSchedule;
-
+export default AppointmentSchedule;
