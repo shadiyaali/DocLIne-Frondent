@@ -38,12 +38,18 @@ export default function UserAppointment() {
     try {
       if (id) {
         const response = await axios.get(`${BASE_URL}/api/getSlotsUser/${id}`);
-        setSlots(response.data);
+        const currentDateTime = new Date().toISOString();
+  
+        // Filter out past slots
+        const futureSlots = response.data.filter(slot => slot.date > currentDateTime);
+  
+        setSlots(futureSlots);
       }
     } catch (e) {
       console.log(e);
     }
   }
+  
 
   const handleChange = (e) => {
     const selectedDate = e.target.value;
@@ -72,7 +78,7 @@ export default function UserAppointment() {
   };
 
   return (
-    <div className="flex justify-center mb-28 mt-8">
+    <div className="flex justify-center mb-28 mt-20">
       <div className="flex flex-col md:flex-row items-center md:items-start mb-6">
         <div className="md:mr-8 justify-center">
           {doctor?.user?.image ? (

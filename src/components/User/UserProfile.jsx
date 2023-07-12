@@ -69,7 +69,7 @@ function UserProfile() {
   }
 
   return (
-    <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4 w-full">
+    <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4 w-full  mt-20">
       <div className="w-full flex flex-col h-screen">
       <CardHeader className={`relative h-56 overflow-visible`}>
         <img src={img} alt="" className='absolute w-full h-full z-0' />

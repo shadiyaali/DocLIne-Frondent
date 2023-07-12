@@ -32,8 +32,12 @@ function NavBar() {
         <Link to='/'>
         <li className='px-3 list-none font-bold text-teal-800'>Home</li>
       </Link>
-      <li className='px-1 list-none font-bold text-customColorC'>Doctors</li>
-      <li className='px-1 list-none font-bold text-customColorC'>Departments</li>
+      <Link to="/userdoctor">
+        <li className='px-3 list-none font-bold text-teal-800'>Doctors</li>
+      </Link>
+      <Link to="chat/">
+        <li className='px-3 list-none font-bold text-teal-800'>Community</li>
+      </Link>
       {user_auth ? (
   <Link to="/myappointments">
     <li className="px-1 list-none font-bold text-teal-800  gap-3">My Appointments</li>

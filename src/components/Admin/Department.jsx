@@ -34,7 +34,12 @@ const AdminDepartments = () => {
       formData.append('description', newDepartment.description);
       formData.append('image', newDepartment.image);
 
-      await axios.post(`${BASE_URL}/api/createDepartment/`, formData);
+      const response = await axios.post(`${BASE_URL}/api/createDepartment/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       setNewDepartment({ name: '', description: '', image: null });
       fetchDepartments();
       toast.success('Department added successfully');

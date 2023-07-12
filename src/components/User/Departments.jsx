@@ -25,7 +25,7 @@ function Department() {
   }
 
   return (
-    <div className="container mx-auto p-8 shadow-xl bg-gray-200  ">
+    <div className="container mx-auto p-8 shadow-xl bg-gray-200 mt-20 mb-20 ">
       <h1 className="text-3xl font-bold text-center  text-teal-600  ">
       
         <span className="border-b-  pb-2 mt-15 mr-4">Our Main</span>Departments

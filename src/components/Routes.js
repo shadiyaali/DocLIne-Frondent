@@ -23,8 +23,11 @@ import DoctorPage from "../components/Doctor/SlotePage";
 import Doctordepartments from "../components/Doctor/Department";
 import AdminDepartments from "../components/Admin/Department";
 // import DoctorProfilePage from "../components/Doctor/Profile"
-import UserProfile from "../components/User/UserProfile"
-import MyAppointments from "./User/MyAppointments";
+import UserProfile from "../pages/User/UserProfilePage"
+import MyAppointments from "../pages/User/MyAppointmentPage";
+import Department from "../pages/User/DepartmentPage";
+import ChatGroup from "../pages/chat/ChatGroups";
+ 
 
 
 
@@ -42,6 +45,7 @@ function Proutes() {
       <Route path="/userappointment/:id" element={<UserAppointment/>}/>
       <Route path="/userprofile/:id" element={<UserProfile/>}/>
       <Route path="/myappointments" element={<MyAppointments/>}/>
+      <Route path="/departments" element={<Department/>}/>
 
       <Route path="/doctorhome/" element={<Doctorhome />}>
         <Route path="" element={<Dashboard />} />
@@ -55,6 +59,9 @@ function Proutes() {
         {/* payment */}
      <Route path='payment/' element ={<Paymentdetails/>}/>
      <Route path='success/' element ={<PaymentSuccessPage/>}/>
+     
+       {/* chat */}
+     <Route path='chat/' element ={<ChatGroup/>}/>
 
       <Route path="/adminhome" element={<AdminHome />} >
          <Route path="" element={<ADashboard />} />
