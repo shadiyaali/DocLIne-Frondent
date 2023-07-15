@@ -22,12 +22,12 @@ function NavBar() {
   };
 
   return (
-    <div className='w-100 h-20 flex font-poppins px-5 p-4 place-items-center place-content-center gap-5 '>
+    <div className='w-100 h-20 flex shadow-2xl bg-gray-100 font-poppins px-5 p-4 place-items-center place-content-center gap-5 '>
       <div className='flex flex-1 place-items-center place-content-start gap-12 '>
         <h1 className='font-extrabold text-4xl ps-3 text-customColorC'>DocLine</h1>
-        <div className='flex px-10 rounded-3xl border-2 py-2 place-items-center ms-3 gap-12'>
-          <AiOutlineSearch className='text-black'></AiOutlineSearch>
-          <input type='text' className='focus:outline-dotted ms-2 bg-transparent placeholder:text-black ' placeholder='search for doctors' />
+        <div className='flex  px-10   items-center ms-3'>
+          {/* <AiOutlineSearch className='text-black'></AiOutlineSearch> */}
+          {/* <input type='text' className='focus:outline-dotted ms-2 bg-transparent placeholder:text-black ' placeholder='search for doctors' /> */}
         </div>
         <Link to='/'>
         <li className='px-3 list-none font-bold text-teal-800'>Home</li>
@@ -63,7 +63,7 @@ function NavBar() {
             </Link>
             <Link to='/login'>
               <li className='px-1 list-none'>
-                <button className='px-4 w-[75px] py-2 bg-teal-600 mx-5' onClick={logout}>
+                <button className='text-white rounded-xl px-4 font-bold w-[75px] py-2 bg-teal-600 mx-5' onClick={logout}>
                   Logout
                 </button>
               </li>
@@ -72,10 +72,10 @@ function NavBar() {
         </div>
       ) : (
         <div>
-          <div className='flex gap-2 shadow-xl'>
+          <div className='flex gap-2 '>
             <Link to='/login'>
               <li className='px-1 list-none'>
-                <button className='px-6 py-2 bg-teal-600 mx-5 text-white'>Login</button>
+                <button className=' rounded-xl px-6 py-2 bg-teal-600  mx-5 font-bold text-white'>Login</button>
               </li>
             </Link>
           </div>

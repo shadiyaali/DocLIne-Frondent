@@ -18,20 +18,20 @@ const AppointmentSchedule = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const selectedDate = new Date(date);
     const currentDate = new Date();
-
+  
     if (selectedDate < currentDate) {
       toast.error('Please select a future date');
       return;
     }
-
+  
     if (startTime >= endTime) {
       toast.error('End time should be after the start time');
       return;
     }
-
+  
     const formData = {
       date,
       start_time: startTime,
@@ -40,13 +40,20 @@ const AppointmentSchedule = () => {
       slot_duration: parseInt(slotDuration),
       doctor: user_name ? user_name.user_id : '',
     };
-
+  
     try {
       const response = await axios.post(`${BASE_URL}/api/scheduleappointment/`, formData);
-
+  
       if (response.status === 201) {
         console.log(response.data);
         toast.success('Slot created successfully');
+  
+        // Reset the form fields
+        setDate('');
+        setStartTime('');
+        setEndTime('');
+        setSlotDuration('');
+        setSelectedDates([]);
       } else {
         toast.error('Failed to create slot');
       }
@@ -58,6 +65,7 @@ const AppointmentSchedule = () => {
       toast.error('Failed to create slot');
     }
   };
+  
 
   const handleDateChange = (e) => {
     setDate(e.target.value);

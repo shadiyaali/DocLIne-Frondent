@@ -27,6 +27,7 @@ import UserProfile from "../pages/User/UserProfilePage"
 import MyAppointments from "../pages/User/MyAppointmentPage";
 import Department from "../pages/User/DepartmentPage";
 import ChatGroup from "../pages/chat/ChatGroups";
+import CreateRoom from "./Doctor/CreateRoom";
  
 
 
@@ -53,6 +54,7 @@ function Proutes() {
         <Route path="scheduleappointment" element={<ScheduleAppointment />} />
         <Route path="viewslot" element={<DoctorPage/>} />
         <Route path="doctordepartment" element={<Doctordepartments/>} />
+        <Route path='createRoom/' element ={<CreateRoom/>}/>,
         {/* <Route path="doctorprofile" element={<DoctorProfilePage/>} /> */}
       </Route>
       

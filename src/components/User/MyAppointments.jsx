@@ -87,7 +87,7 @@ const MyAppointments = () => {
             </tbody>
           </table>
         ) : (
-          <p className="text-center">No upcoming appointments</p>
+          <p className="text-center text-lg font-bold">No upcoming appointments</p>
         )}
 
         {completedAppointments.length > 0 && (

@@ -5,7 +5,7 @@ const ChatSidebar = ({ rooms, activeRoomId, setActiveRoomId }) => {
   console.log(rooms,'rommms')
   return (
     <div className="flex flex-col bg-gray-400 h-screen w-1/4 border-r-2 border-gray-100">
-      <h2 className="text-xl font-bold p-4 bg-teal-300 text-white">Communities</h2>
+      <h2 className="text-2xl font-bold p-4 text-center bg-teal-600 text-white">Communities</h2>
       <ul className="flex-grow overflow-y-auto">
         {rooms.map((room) => (
           <li

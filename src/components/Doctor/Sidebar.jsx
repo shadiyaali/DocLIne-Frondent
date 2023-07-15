@@ -118,9 +118,9 @@ export default function Sidebar() {
                 <h3 className='font-semibold'>Departments</h3>
             </NavLink>
           
-            <NavLink to="chat" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
+            <NavLink to="createRoom/" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
                 <HiOutlineDocumentText size={50} className='px-3'></HiOutlineDocumentText>
-                <h3 className='font-semibold'>Chat</h3>
+                <h3 className='font-semibold'>Create Room</h3>
             </NavLink>
             <hr className="border-b-2 border-blue-gray-200 mt-4 mb-10"/>
             <NavLink to="doctorprofile" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>

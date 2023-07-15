@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 import { getLocal } from '../../helpers/auth';
 import axios from 'axios';
 import ChatSidebar from './chatSidebar';
-import { Avatar } from "@material-tailwind/react";
+import { Avatar, Input, Button } from "@material-tailwind/react";
 import { BASE_URL } from '../../utils/config';
 
 const ChatComponent = () => {
@@ -39,7 +39,6 @@ const ChatComponent = () => {
 
       socketRef.current.onmessage = (event) => {
         const message = JSON.parse(event.data);
-        console.log(event,"hloooo")
         setMessages((prevMessages) => [...prevMessages, message]);
       };
 
@@ -100,74 +99,65 @@ const ChatComponent = () => {
   }, [messages]);
 
   return (
-    <div className="flex h-screen rounded-md bg-gray-200 mt-20 mb-20">
+    <div className="flex h-screen bg-gray-200 mt-20 mb-20">
       <ChatSidebar
         rooms={rooms}
         activeRoomId={activeRoomId}
         setActiveRoomId={setActiveRoomId}
       />
-      <div className="flex-grow">
-        <div className="flex flex-col h-screen">
-          <div className="py-4 px-6 bg-teal-100 text-white">
-            <h2 className="text-xl font-bold">Share your views</h2>
-          </div>
-          <div className="flex-grow p-6 overflow-y-auto">
+      <div className="flex-grow flex flex-col">
+        <div className="py-4 px-6 bg-teal-600 text-white">
+          <h2 className="text-2xl text-center font-bold">Share your views</h2>
+        </div>
+        <div className="flex-grow p-6 overflow-y-auto">
           {messages.length > 0 ? (
-  messages.map((message, index) => (
-    <div
-      key={index}
-      ref={scroll}
-      className={`flex ${
-        message.author === author ? 'justify-end' : 'justify-start'
-      } mb-4`}
-    >
-        <div className="flex items-center">
-          {message.author?.id === author ? (
-            <>
-              <div className="mr-3 text-red-600">{message.content}</div>
-            </>
+            messages.map((message, index) => (
+              <div
+                key={index}
+                ref={index === messages.length - 1 ? scroll : null}
+                className={`flex ${
+                  message.author === author ? 'justify-end' : 'justify-start'
+                } mb-4`}
+              >
+                <div
+                  className={`${
+                    message.author === author
+                      ? 'bg-blue-500 text-white rounded-t-lg rounded-bl-lg'
+                      : 'bg-white text-black rounded-t-lg rounded-br-lg'
+                  } py-2 px-4 max-w-xs break-words`}
+                >
+                  {message.content}
+                </div>
+              </div>
+            ))
           ) : (
-            <>
-              <Avatar
-                src={BASE_URL+message?.author?.image}
-                alt="avatar"
-                size="xs"
-                className="mr-3 rounded-full h-6 w-6"
-              />
-              <div className=' text-red-500'>{message.content}</div>
-            </>
+            <div className="text-center text-gray-500">No messages yet</div>
           )}
         </div>
-      </div>
-  ))
-) : (
-  <div className="text-center text-gray-500">No messages yet</div>
-)}
-
-          </div>
-          <div className="py-4 px-6 bg-gray-300">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                sendMessage();
-              }}
-              className="flex space-x-2"
+        <div className="py-4 px-6 bg-gray-300">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendMessage();
+            }}
+            className="flex space-x-2"
+          >
+            <Input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              className="flex-grow border border-gray-400 rounded-lg px-4 py-2 focus:outline-none"
+              placeholder="Type a message..."
+            />
+            <Button
+              type="submit"
+              color="teal"
+              buttonType="filled"
+              className="px-4 py-2 rounded-lg"
             >
-              <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-grow border border-gray-400 rounded-lg px-4 py-2 focus:outline-none"
-                placeholder="Type a message..."
-              />
-              <button
-                type="submit"
-                className="bg-teal-300 text-white px-4 py-2 rounded-lg"
-              >
-                Send
-              </button>
-            </form>
-          </div>
+              Send
+            </Button>
+          </form>
         </div>
       </div>
     </div>

@@ -33,66 +33,58 @@ import {
         user_name = jwt_decode(user_auth)
     }
     const createDoctor = async (e) => {
-        e.preventDefault()
-        try {
-          if (!localStorage.getItem('authToken')) {
-            // User is not logged in, redirect to login page
-            return;
-          }
+      e.preventDefault();
       
-          // Validate the input data
-          if (address === '') {
-            throw new Error('Please enter an address');
-          }
+      // Validate the input data
+      if (address === '') {
+        toast.error('Please enter an address');
+        return;
+      }
       
-          if (department === '') {
-            throw new Error('Please select a specialization');
-          }
+      if (department === '') {
+        toast.error('Please select a specialization');
+        return;
+      }
       
-          if (experience === '') {
-            throw new Error('Please enter your experience');
-          }
+      if (experience === '') {
+        toast.error('Please enter your experience');
+        return;
+      }
       
-          if (fee === '') {
-            throw new Error('Please enter your fee');
-          }
+      if (fee === '') {
+        toast.error('Please enter your fee');
+        return;
+      }
       
-          // Create a new FormData object
+      const formData = new FormData();
+      formData.append('user', user_name.user_id);
+      formData.append('address', address);
+      formData.append('department', department);
+      formData.append('experience', experience);
+      formData.append('fee', fee);
+      formData.append('certificate', certificate);
+      
+      try {
+        const response = await axios.post(`${BASE_URL}/api/createDoctors/`, formData);
+        
+        if (response.status === 201) {
+          toast.success('Successfully sent request.');
           
-          const formData = new FormData();
-          formData.append('user',user_name.user_id);
-          formData.append('address', address);
-          formData.append('department', department);
-          formData.append('experience', experience);
-          formData.append('fee', fee);
-          formData.append('certificate', certificate);
-
-          console.log(...formData)
-        //   formData.append("is_approved", is_approved);
-          // Append the user ID to the FormData object
-          
-      
-          // Submit the form data to the server
-          const response = await axios({
-            method:'post',
-            url:`${BASE_URL}/api/createDoctors/`,
-            data:formData
-          })
-          console.log(response)
-        //   post("/api/createDoctors/", formData);
-      
-          // Check the response status code
-          if (response.status === 201) {
-            toast.success("succefully sent  request .");
-          } else {
-            // Error!
-            toast.error('Error creating doctor');
-          }
-        } catch (error) {
-          console.log(error);
-          toast.error(error.message);
+          // Reset the form fields
+          setAddress('');
+          setSpecialization('');
+          setExperience('');
+          setFee('');
+          setCertificate(null);
+        } else {
+          toast.error('Error creating doctor');
         }
-      };
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    };
+    
 
     async function getDepartments() {
       try {

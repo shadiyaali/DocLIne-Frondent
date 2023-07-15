@@ -53,6 +53,12 @@ export default function UserAppointment() {
 
   const handleChange = (e) => {
     const selectedDate = e.target.value;
+    const currentDate = new Date().toISOString().split('T')[0];
+  
+    if (selectedDate < currentDate) {
+      return;
+    }
+  
     setDate(selectedDate);
     const selected = slots.filter((slot) => slot.date === e.target.value);
     setNoSlots(selected.length === 0);
@@ -60,6 +66,14 @@ export default function UserAppointment() {
   };
 
   const handleClick = (id) => {
+    const selectedSlot = selectedSlots.find((selected) => selected.id === id);
+  
+    if (selectedSlot.date < new Date().toISOString().split('T')[0]) {
+      // Show a pop-up or display a message indicating that previous dates cannot be selected
+      alert('Previous dates cannot be selected');
+      return;
+    }
+  
     const buttonElement = document.getElementById(id);
     if (buttonElement) {
       buttonElement.classList.toggle('bg-blue-500');
@@ -68,6 +82,7 @@ export default function UserAppointment() {
     const bookedSlot = selectedSlots.find((selected) => selected.id === id);
     setBookedSlot(bookedSlot);
   };
+  
 
   const toggleDate = () => {
     setShowDate(true);
@@ -117,12 +132,14 @@ export default function UserAppointment() {
             <div className="mb-4">
               <h5 className="mt-1">Select a Date</h5>
               <input
-                type="date"
-                id="date"
-                value={date}
-                onChange={handleChange}
-                className="mt-3 border-gray-300 border-2 rounded-md py-2 px-3"
-              />
+  type="date"
+  id="date"
+  value={date}
+  onChange={handleChange}
+  className={`mt-3 border-gray-300 border-2 rounded-md py-2 px-3 ${
+    date < new Date().toISOString().split('T')[0] ? 'bg-white' : ''
+  }`}
+/>
             </div>
           )}
         </div>
