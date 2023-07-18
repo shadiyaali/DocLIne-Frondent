@@ -6,34 +6,26 @@ import jwtDecode from 'jwt-decode';
 import { getLocal } from '../../helpers/auth'
 
 function PaymentPage(props) {
-  const [user,setUser] =useState([])
+  const [user, setUser] = useState([]);
 
-useEffect(()=>{
-  const localResponse = getLocal('authToken');
-  const response = jwtDecode(localResponse)
-  setUser(response.user_id)
-})
+  useEffect(() => {
+    const localResponse = getLocal('authToken');
+    const response = jwtDecode(localResponse);
+    setUser(response.user_id);
+  }, []);
 
- const history = useNavigate()
+  const history = useNavigate();
 
-  const {doctor,bookedSlot} = props
-  
-// this function will handel payment when user submit his/her money
-// and it will confim if payment is successfull or not
+  const { doctor, bookedSlot } = props;
+
   const handlePaymentSuccess = async (response) => {
     try {
       let bodyData = new FormData();
-
-      // we will send the response we've got from razorpay to the backend to validate the payment
       bodyData.append("response", JSON.stringify(response));
-      bodyData.append("slot",bookedSlot.id);
-      bodyData.append("user",user);
+      bodyData.append("slot", bookedSlot.id);
+      bodyData.append("user", user);
 
-
-      await Axios({
-        url: `${BASE_URL}/razorpay/paysuccess/`,
-        method: "POST",
-        data: bodyData,
+      await Axios.post(`${BASE_URL}/razorpay/paysuccess/`, bodyData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -41,10 +33,7 @@ useEffect(()=>{
       })
         .then((res) => {
           console.log("Everything is OK!");
-          history('/success')
-
-
-       
+          history('/success');
         })
         .catch((err) => {
           console.log(err);
@@ -54,81 +43,74 @@ useEffect(()=>{
     }
   };
 
-  // this will load a script tag which will open up Razorpay payment card to make //transactions
   const loadScript = () => {
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    document.body.appendChild(script);
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
   };
 
   const showRazorpay = async () => {
-    const res = await loadScript();
+    try {
+      await loadScript();
 
-    let bodyData = new FormData();
-    console.log(doctor.fee,'fdofksfkd')
-    // we will pass the amount and product name to the backend using form data
-    bodyData.append("amount", doctor.fee.toString());
-    bodyData.append("name", doctor.user.username);
-    bodyData.append("user",user)
-    bodyData.append('doctor',doctor.id)
-    bodyData.append('fee',doctor.fee)
-    bodyData.append('slot',bookedSlot.id)
+      let bodyData = new FormData();
+      bodyData.append("amount", doctor.fee.toString());
+      bodyData.append("name", doctor.user.username);
+      bodyData.append("user", user);
+      bodyData.append('doctor', doctor.id);
+      bodyData.append('fee', doctor.fee);
+      bodyData.append('slot', bookedSlot.id);
 
-    const data = await Axios({
-      url: `${BASE_URL}/razorpay/pay/`,
-      method: "POST",
-      data: bodyData,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      data: bodyData,
-    }).then((res) => {
-      return res;
-    });
+      const { data } = await Axios.post(`${BASE_URL}/razorpay/pay/`, bodyData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
-    // in data we will receive an object from the backend with the information about the payment
-    //that has been made by the user
+      const REACT_APP_PUBLIC_KEY = 'rzp_test_GdyTApPzGf7gjR';
+      const REACT_APP_SECRET_KEY = '41dWu1DxxgUzZhn77Q5itEal';
 
-    const REACT_APP_PUBLIC_KEY= 'rzp_test_GdyTApPzGf7gjR'
-    const REACT_APP_SECRET_KEY='41dWu1DxxgUzZhn77Q5itEal';
+      var options = {
+        key_id: process.env.REACT_APP_PUBLIC_KEY,
+        key_secret: process.env.REACT_APP_SECRET_KEY,
+        amount: data.payment.amount,
+        currency: "INR",
+        name: "Org. Name",
+        description: "Test transaction",
+        image: "", // add image url
+        order_id: data.payment.id,
+        handler: function (response) {
+          handlePaymentSuccess(response);
+        },
+        prefill: {
+          name: "shadi",
+          email: "User's email",
+          contact: "User's phone",
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
 
-
-    var options = {
-      key_id: process.env.REACT_APP_PUBLIC_KEY, // in react your environment variable must start with REACT_APP_
-      key_secret: process.env.REACT_APP_SECRET_KEY,
-      amount: data.data.payment.amount,
-      currency: "INR",
-      name: "Org. Name",
-      description: "Test teansaction",
-      image: "", // add image url
-      order_id: data.data.payment.id,
-      handler: function (response) {
-        // we will handle success by calling handlePaymentSuccess method and
-        // will pass the response that we've got from razorpay
-        handlePaymentSuccess(response);
-      },
-      prefill: {
-        name: "shadi",
-        email: "User's email",
-        contact: "User's phone",
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    var rzp1 = new window.Razorpay(options);
-    rzp1.open();
+      var rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className=" h-1/6 " >
+    <div className="h-1/6">
       <button onClick={showRazorpay} className="bg-yellow-500 text-black py-2 px-4 rounded-md border-black mt-4">
-        Pay with razorpay
+        Pay with Razorpay
       </button>
     </div>
   );

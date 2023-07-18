@@ -50,12 +50,13 @@ export default function UserAppointment() {
     }
   }
   
-
   const handleChange = (e) => {
     const selectedDate = e.target.value;
     const currentDate = new Date().toISOString().split('T')[0];
   
     if (selectedDate < currentDate) {
+      setNoSlots(false);
+      setDate('');
       return;
     }
   
@@ -69,7 +70,7 @@ export default function UserAppointment() {
     const selectedSlot = selectedSlots.find((selected) => selected.id === id);
   
     if (selectedSlot.date < new Date().toISOString().split('T')[0]) {
-      // Show a pop-up or display a message indicating that previous dates cannot be selected
+      // Show a message indicating that previous dates cannot be selected
       alert('Previous dates cannot be selected');
       return;
     }
@@ -83,13 +84,24 @@ export default function UserAppointment() {
     setBookedSlot(bookedSlot);
   };
   
-
   const toggleDate = () => {
     setShowDate(true);
   };
 
   const bookAppointment = () => {
     setShowPaymentDetails(true);
+  };
+
+  const formatTime = (time) => {
+    const parts = time.split(':');
+    let hours = parseInt(parts[0], 10);
+    const minutes = parts[1];
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours %= 12;
+    hours = hours || 12;
+
+    return `${hours}:${minutes} ${ampm}`;
   };
 
   return (
@@ -131,15 +143,18 @@ export default function UserAppointment() {
           ) : (
             <div className="mb-4">
               <h5 className="mt-1">Select a Date</h5>
+              {date < new Date().toISOString().split('T')[0] && (
+                <p className="text-red-500 text-xl mt-1">Please select a valid date</p>
+              )}
               <input
-  type="date"
-  id="date"
-  value={date}
-  onChange={handleChange}
-  className={`mt-3 border-gray-300 border-2 rounded-md py-2 px-3 ${
-    date < new Date().toISOString().split('T')[0] ? 'bg-white' : ''
-  }`}
-/>
+                type="date"
+                id="date"
+                value={date}
+                onChange={handleChange}
+                className={`mt-3 border-gray-300 border-2 rounded-md py-2 px-3 ${
+                  date < new Date().toISOString().split('T')[0] ? 'bg-white' : ''
+                }`}
+              />
             </div>
           )}
         </div>
@@ -164,7 +179,7 @@ export default function UserAppointment() {
                   onClick={() => handleClick(slot.id)}
                   id={slot.id}
                 >
-                  {slot.start_time}-{slot.end_time}
+                  {formatTime(slot?.start_time)} - {formatTime(slot?.end_time)}
                 </button>
               ))}
             </div>

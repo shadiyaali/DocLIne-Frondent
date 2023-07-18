@@ -5,18 +5,17 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from 'jwt-decode';
 import { getLocal } from '../../helpers/auth';
-
+import Prescriptions from './Prescriptions';
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [completedAppointments, setCompletedAppointments] = useState([]);
+  const [showPrescriptions, setShowPrescriptions] = useState(false);
   const user_auth = getLocal('authToken');
   const user_name = user_auth ? jwt_decode(user_auth) : null;
 
-
   async function getAppointments() {
     try {
-       
       const response = await axios.get(`${BASE_URL}/api/getappointments/${user_name.user_id}`);
       console.log(response);
       setAppointments(response.data.filter(appointment => appointment.status !== 'completed'));
@@ -25,7 +24,6 @@ const MyAppointments = () => {
       console.error('Error fetching appointments:', error);
     }
   }
-  
 
   useEffect(() => {
     getAppointments();
@@ -42,6 +40,14 @@ const MyAppointments = () => {
     }
   };
 
+  const handleViewPrescriptions = () => {
+    setShowPrescriptions(true);
+  };
+
+  const handleClosePrescriptions = () => {
+    setShowPrescriptions(false);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 mb-28 mt-16">
       <h2 className="text-3xl font-bold mb-4 text-left">Your Appointments</h2>
@@ -56,7 +62,6 @@ const MyAppointments = () => {
                 <th className="px-4 py-2 font-semibold text-gray-800">Start Time</th>
                 <th className="px-4 py-2 font-semibold text-gray-800">End Time</th>
                 <th className="px-4 py-2 font-semibold text-gray-800">Status</th>
-                {/* <th className="px-4 py-2 font-semibold text-gray-800">Actions</th> */}
               </tr>
             </thead>
             <tbody className="text-center">
@@ -72,16 +77,6 @@ const MyAppointments = () => {
                   <td className="px-4 py-2 border-b">{appointment?.slot?.start_time}</td>
                   <td className="px-4 py-2 border-b">{appointment?.slot?.end_time}</td>
                   <td className="px-4 py-2 border-b">{appointment?.status}</td>
-                  {/* <td className="px-4 py-2 border-b">
-                    {appointment.status === 'pending' && (
-                      // <button
-                      //   className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                      //   onClick={() => handleCancelAppointment(appointment.id)}
-                      // >
-                      //   Cancel
-                      // </button>
-                    )}
-                  </td> */}
                 </tr>
               ))}
             </tbody>
@@ -123,7 +118,19 @@ const MyAppointments = () => {
             </table>
           </>
         )}
+
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            onClick={handleViewPrescriptions}
+          >
+            View Prescriptions
+          </button>
+        </div>
       </div>
+
+      {showPrescriptions && <Prescriptions onClose={handleClosePrescriptions} />}
+
       <ToastContainer /> {/* Toast container for displaying success/error messages */}
     </div>
   );

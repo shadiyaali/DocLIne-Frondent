@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSocket } from '../components/SocketContext/SocketProvider'
 import ReactPlayer from 'react-player'
-import peer from '../Components/Service/peer'
-import Footer from '../Components/UserSide/Footer'
-import logoImage from '../images/logo.png'
+import peer from '../components/Service/peer'
+import Footer from '../components/User/Footer'
+import logoImage from '../images/doctor.png'
+import NavBar from '../components/User/Navbar'
 
 
 
 import { IoIosCall } from "react-icons/io";
 import { useNavigate, useParams } from 'react-router-dom'
+// import { Navbar } from '@material-tailwind/react'
 
 function Room() {
     const socket = useSocket()
@@ -29,7 +31,7 @@ function Room() {
             video:true
         })
         const offer = await peer.getOffer()
-        socket.emit("user:call",{to:RemoteSocketId,offer})
+        socket?.emit("user:call",{to:RemoteSocketId,offer})
         setMystream(stream)
     },[RemoteSocketId,socket])
 
@@ -106,17 +108,17 @@ function Room() {
 
 
     useEffect(()=>{
-        socket.on("user:joined",handleUserJoined)
-        socket.on("incoming:call",handleIncommingCall)
-        socket.on("call:accepted",handleCallAccepted)
-        socket.on("peer:nego:needed",handleNegoNeedIncoming)
-        socket.on("peer:nego:final",handleNegoNeedFinal)
+        socket?.on("user:joined",handleUserJoined)
+        socket?.on("incoming:call",handleIncommingCall)
+        socket?.on("call:accepted",handleCallAccepted)
+        socket?.on("peer:nego:needed",handleNegoNeedIncoming)
+        socket?.on("peer:nego:final",handleNegoNeedFinal)
         return ()=>{
-            socket.off("user:joined",handleUserJoined)
-            socket.off("incoming:call",handleIncommingCall)
-            socket.off("call:accepted",handleCallAccepted)
-            socket.off("peer:nego:needed",handleNegoNeedIncoming)
-            socket.off("peer:nego:final",handleNegoNeedFinal)
+            socket?.off("user:joined",handleUserJoined)
+            socket?.off("incoming:call",handleIncommingCall)
+            socket?.off("call:accepted",handleCallAccepted)
+            socket?.off("peer:nego:needed",handleNegoNeedIncoming)
+            socket?.off("peer:nego:final",handleNegoNeedFinal)
         }
     },[socket,handleUserJoined,handleIncommingCall,handleCallAccepted,handleNegoNeedIncoming,handleNegoNeedFinal])
 
@@ -140,10 +142,11 @@ function Room() {
 
   return (
     <>
-    <div className='bg-gray-200 h-28 pt-9'>
+    <NavBar/>
+    <div className='bg-gray-200 h-28 pt-9 mb-8'>
         <div className="div flex justify-center">
          <img src={logoImage} alt="Logo" className="mr-2 h-10 w-10" />
-         <div className="flex items-center text-lg">MEDIcare</div>
+         <div className="flex items-center font-bold text-teal-600 text-2xl">Docline</div>
         </div>
     <h1 className='text-center text-black  font-extrabold  font-serif text-2xl uppercase'> Video Room</h1>
     </div>
@@ -178,9 +181,9 @@ function Room() {
         </div>
        
     </div>
-    <div className="h-full w-full flex justify-center"> <div className=''>
+    <div className="h-full w-full flex justify-center mt-8"> <div className=''>
     {RemoteStream && <button className='rounded-lg p-2 h-16 w-24 mb-6 bg-red-500' onClick={handleEndCall}><IoIosCall className='h-11 w-20' /></button> }
-    {!Mystream && !RemoteStream && RemoteSocketId && <button className='rounded-lg p-2 h-16 w-24 mb-6 bg-green-500' onClick={handleCallUser}><IoIosCall className='h-11 w-20' /></button>}
+    {!Mystream && !RemoteStream && RemoteSocketId && <button className='rounded-lg p-2 h-16 w-24 mb-6 bg-green-500 ' onClick={handleCallUser}><IoIosCall className='h-11 w-20' /></button>}
     </div></div>
    
    

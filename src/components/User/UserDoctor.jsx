@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/config';
 import { Link } from 'react-router-dom';
+import { FaRupeeSign } from 'react-icons/fa';
+
 import {
   Card,
   CardHeader,
@@ -126,8 +128,8 @@ function UserDoctor() {
                   Experience: {doctor?.experience} years
                 </Typography>
                 <Typography color="gray" className="font-semibold" textGradient>
-                  Fee: ${doctor?.fee}
-                </Typography>
+                Fee: <FaRupeeSign className="inline-block text-gray-600" /> {doctor?.fee}
+              </Typography>
               </CardBody>
               <CardFooter className="px-3">
                 <Link to={`/userappointment/${doctor.id}`}>

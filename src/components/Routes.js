@@ -28,6 +28,10 @@ import MyAppointments from "../pages/User/MyAppointmentPage";
 import Department from "../pages/User/DepartmentPage";
 import ChatGroup from "../pages/chat/ChatGroups";
 import CreateRoom from "./Doctor/CreateRoom";
+import { SocketProvider } from "./SocketContext/SocketProvider";
+import Room from "../screens/Room";
+import VideoCall from '../pages/VideoCallPage/VideoCall';
+
  
 
 
@@ -50,7 +54,10 @@ function Proutes() {
 
       <Route path="/doctorhome/" element={<Doctorhome />}>
         <Route path="" element={<Dashboard />} />
-        <Route path="appointment" element={<Appointment />} />
+        <Route path="appointment" element={<SocketProvider>
+        <Appointment />
+        </SocketProvider>} />
+      
         <Route path="scheduleappointment" element={<ScheduleAppointment />} />
         <Route path="viewslot" element={<DoctorPage/>} />
         <Route path="doctordepartment" element={<Doctordepartments/>} />
@@ -64,6 +71,10 @@ function Proutes() {
      
        {/* chat */}
      <Route path='chat/' element ={<ChatGroup/>}/>
+
+      {/* Videocall */}
+      <Route path='videoCall/' element ={<VideoCall/>}/>
+      <Route path="/room/:doctor_id" element={ <Room/> }/>
 
       <Route path="/adminhome" element={<AdminHome />} >
          <Route path="" element={<ADashboard />} />
