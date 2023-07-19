@@ -15,13 +15,16 @@ const AppointmentSchedule = () => {
   const [selectedDates, setSelectedDates] = useState([]);
   const user_auth = getLocal('authToken');
   const user_name = user_auth ? jwt_decode(user_auth) : null;
-
+console.log(startTime, "time");
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     const selectedDate = new Date(date);
     const currentDate = new Date();
-  
+    selectedDate.setHours(startTime.split(':')[0])
+    selectedDate.setMinutes(startTime.split(':')[1])
+
+    console.log(selectedDate, currentDate,"today");
     if (selectedDate < currentDate) {
       toast.error('Please select a future date');
       return;
@@ -68,6 +71,7 @@ const AppointmentSchedule = () => {
   
 
   const handleDateChange = (e) => {
+    console.log(e.target.value);
     setDate(e.target.value);
   };
 

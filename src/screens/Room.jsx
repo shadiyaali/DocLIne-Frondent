@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player'
 import peer from '../components/Service/peer'
 import Footer from '../components/User/Footer'
 import logoImage from '../images/doctor.png'
-import NavBar from '../components/User/Navbar'
+ 
 
 
 
@@ -142,7 +142,7 @@ function Room() {
 
   return (
     <>
-    <NavBar/>
+   
     <div className='bg-gray-200 h-28 pt-9 mb-8'>
         <div className="div flex justify-center">
          <img src={logoImage} alt="Logo" className="mr-2 h-10 w-10" />

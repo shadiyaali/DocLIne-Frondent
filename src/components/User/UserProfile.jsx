@@ -62,7 +62,7 @@ function UserProfile() {
       console.error(error);
     }
   }
-  
+  console.log(user);
 
   if (!user) {
     return null;

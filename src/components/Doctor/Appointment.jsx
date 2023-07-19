@@ -29,6 +29,7 @@ function Appointments() {
   }, [Email, doctor, socket]);
 
   const handleJoinRoom = useCallback((data) => {
+    console.log(data, "doctor data");
     const { Email, doctor } = data;
     navigate(`/room/${doctor}`);
   }, [navigate]);

@@ -39,9 +39,23 @@ export default function UserAppointment() {
       if (id) {
         const response = await axios.get(`${BASE_URL}/api/getSlotsUser/${id}`);
         const currentDateTime = new Date().toISOString();
-  
+        console.log(response, "response");
+        console.log(currentDateTime, "slot current date");
         // Filter out past slots
-        const futureSlots = response.data.filter(slot => slot.date > currentDateTime);
+        const futureSlots = response.data.filter(slot => {
+          const slotDate = new Date(slot.date);
+          slotDate.setHours(slot.start_time.split(':')[0])
+          slotDate.setMinutes(slot.start_time.split(':')[1])
+          const currentDate = new Date();
+          console.log(`start:${slotDate} , current: ${currentDate}`);
+          if (slotDate > currentDate) {
+            return true
+          }else {
+            return false
+          }
+
+        }
+           );
   
         setSlots(futureSlots);
       }
