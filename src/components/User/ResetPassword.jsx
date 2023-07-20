@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import registerImage from "../../images/register.jpg";
+import { BASE_URL } from "../../utils/config";
  
 
 const ResetPassword = () => {
@@ -24,7 +25,7 @@ const ResetPassword = () => {
     if (password !== confirmPassword){
         return toast.error('Passwords are not equal')
     }
-    axios.post('http://127.0.0.1:8000/api/resetPassword/', {
+    axios.post(`${BASE_URL}/api/resetPassword/`, {
       password : password,
       cPassword :confirmPassword,
       storedData : storedData
