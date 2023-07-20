@@ -7,7 +7,7 @@ export function getLocal() {
 
 export default async function login(email, password) {
   console.log(email, password);
-  let response = await fetch('http://localhost:8000/api/token/', {
+  let response = await fetch('https://docline.onrender.com/api/token/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

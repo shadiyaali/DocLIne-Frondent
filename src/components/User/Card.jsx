@@ -15,7 +15,7 @@ function Doctor() {
 
   async function getDoctors() {
     try {
-      const response = await axios.get('http://localhost:8000/api/homelistdoctor/');
+      const response = await axios.get('https://docline.onrender.com/api/homelistdoctor/');
       setDoctors(response.data);
       console.log(response.data);
     } catch (error) {
