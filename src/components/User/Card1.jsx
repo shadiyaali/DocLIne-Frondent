@@ -16,7 +16,7 @@ function Department() {
 
   async function getDepartments() {
     try {
-      const response = await axios.get('https://docline.onrender.com/api/homelistdepartment/');
+      const response = await axios.get('https://www.docline.online/api/homelistdepartment/');
       setDepartments(response.data);
       console.log(response.data);
     } catch (error) {
