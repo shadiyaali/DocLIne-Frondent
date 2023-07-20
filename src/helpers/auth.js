@@ -7,7 +7,7 @@ export function getLocal() {
 
 export default async function login(email, password) {
   console.log(email, password);
-  let response = await fetch('https://doc-line-frondent-te8x.vercel.app/api/token/', {
+  let response = await fetch('https://docline.onrender.com/api/token/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
