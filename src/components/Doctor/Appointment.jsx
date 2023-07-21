@@ -231,7 +231,7 @@ function Appointments() {
                                 </Button>
 
                                 {/* Video icon */}
-                                <FaVideo className="mx-auto w-6 h-6 mt-2" onClick={handleSubmitForm} />
+                                <FaVideo className="mx-auto w-6 h-6 mt-2 " onClick={handleSubmitForm} />
                               </div>
                             ) : (
                               <p className="text-red-500 font-bold text-sm mt-4">Rejected appointment</p>

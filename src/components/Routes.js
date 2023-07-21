@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "./User/Login";
-import RegisterPage from "../pages/User/RegisterPage";
+import RegisterPage from "../components/User/Register";
 import Doctorhome from "../pages/Doctor/Doctorhome";
 import Home from "../pages/User/Home";
 import DoctorApproval from "../pages/User/DoctorApproval";

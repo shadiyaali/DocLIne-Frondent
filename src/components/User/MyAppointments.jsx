@@ -45,24 +45,25 @@ const MyAppointments = () => {
     getAppointments();
   }, []);
 
-  useEffect(() => {
-    timer = setInterval(() => {
-      setAppointments((prev) => {
-        return prev.map((singleAppointment) => {
-          const appointmentTime = new Date(singleAppointment.slot.date);
-          if (appointmentTime >= Date.now()) {
-            singleAppointment.canCall = true;
-          } else {
-            singleAppointment.canCall = false;  
-          }
-          return singleAppointment;
-        });
-      });
-    }, 10000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  // useEffect(() => {
+  //   timer = setInterval(() => {
+  //     setAppointments((prev) => {
+  //       return prev.map((singleAppointment) => {
+  //         const appointmentTime = new Date(singleAppointment.slot.date);
+  //         console.log('can call' , appointmentTime >= Date.now());
+  //         if (appointmentTime >= Date.now()) {
+  //           singleAppointment.canCall = true;
+  //         } else {
+  //           singleAppointment.canCall = false;  
+  //         }
+  //         return singleAppointment;
+  //       });
+  //     });
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, []);
 
   const handleCancelAppointment = async (appointmentId) => {
     try {
@@ -88,6 +89,17 @@ const MyAppointments = () => {
   const handleCall = (doctorId) => {
     setShowVideo({ status: true, doctorId });
   };
+
+  function canCall (start, end, date) {
+    const appointmentStartTime = new Date(`${date}T${start}`);
+    const appointmentEndTime = new Date(`${date}T${end}`)
+    const now = new Date()
+    if (appointmentStartTime <= now && appointmentEndTime >= now) {
+      return true
+    }else {
+      return false
+    }
+  }
 
   return (
     <>
@@ -156,12 +168,14 @@ const MyAppointments = () => {
         })} {/* Updated end time format */}
       </td>
                       <td className="px-4 py-2 border-b">
-                        {appointment?.canCall ? (
+                        {appointment?.status === 'pending' ? 'pending' :
+                        canCall(appointment?.slot?.start_time,appointment?.slot?.end_time, appointment?.slot?.date) ? (
                           appointment?.status === "approved" ? (
                             <FaVideo
                               className="mx-auto w-6 h-6 mt-2 cursor-pointer"
-                              onClick={() =>
-                                handleCall(appointment?.doctor)
+                              onClick={() =>{
+                                console.log(appointment?.doctor)
+                                handleCall(appointment?.doctor)}
                               }
                             />
                           ) : (

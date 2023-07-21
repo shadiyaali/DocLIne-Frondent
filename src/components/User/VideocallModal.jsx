@@ -14,7 +14,7 @@ import { useSocket } from '../SocketContext/SocketProvider';
 function VideocallModal({doctor,setShow}) {
  
     const socket = useSocket()
-  
+    console.log(doctor, 'doc');
 
     const Email = 'patient@gmail.com'
     const navigate = useNavigate()
@@ -24,7 +24,7 @@ function VideocallModal({doctor,setShow}) {
       console.log('hj')
       // e.preventDefault()
       console.log('actual doc', doctor);
-      socket?.emit("room:join", { Email, doctor: doctor?.id })
+      socket?.emit("room:join", { Email, doctor: doctor?.user?.id })
   
     }, [Email, doctor, socket])
   
