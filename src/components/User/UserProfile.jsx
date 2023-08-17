@@ -31,12 +31,12 @@ function UserProfile() {
 
   async function getUser() {
     try { 
-      const response = await axios.get(`${BASE_URL}/api/getSingleUser/${id}`);
+      const response = await axios.get(`${BASE_URL}/api/getSingleUser/${id}/`);
+      console.log(response.data);
       setUser(response.data.userDetails);
       setFirstName(response.data.userDetails.first_name);
       setLastName(response.data.userDetails.last_name);
       setPhoneNumber(response.data.userDetails.phone_number);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
