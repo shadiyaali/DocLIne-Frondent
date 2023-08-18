@@ -27,8 +27,9 @@ function NavBar() {
   return (
     <div className='w-100 h-20 flex shadow-2xl bg-gray-100 font-poppins px-5 p-4 place-items-center place-content-center gap-5 '>
       <div className='flex flex-1 place-items-center place-content-start gap-12 '>
+     
       <Link to='/'>
-        <li className='px-3 list-none text-3xl font-bold text-teal-800'>DocLine</li>
+        <li className='px-3 list-none text-4xl font-extrabold text-teal-800'>DocLine</li>
       </Link>
         <div className='flex  px-10   items-center ms-3'>
           {/* <AiOutlineSearch className='text-black'></AiOutlineSearch> */}

@@ -49,7 +49,6 @@ function Login() {
       toast.error('An error occurred during login');
     }
   };
-
   return (
     <div className= " h-screen w-screen flex items-center justify-center ">
       <Toaster position="top-center" reverseOrder={false} />

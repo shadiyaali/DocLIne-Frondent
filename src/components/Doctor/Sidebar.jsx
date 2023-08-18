@@ -22,16 +22,15 @@ export default function Sidebar() {
     if (localResponse) {
       const decoded = jwt_decode(localResponse);
       const doctorId = decoded?.user_id;
-      console.log(doctorId);
       if (doctorId) {
+        console.log(doctorId);
         fetchDoctorData(doctorId);
       }
     }
   }, []);
-
   const fetchDoctorData = async (doctorId) => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/getDoctorUser/${doctorId}/`);
+      const response = await axios.get(`${BASE_URL}/api/getDoctor/${doctorId}/`);
       setDoctor(response.data);
     } catch (error) {
       console.log(error);
@@ -42,6 +41,7 @@ export default function Sidebar() {
         localStorage.removeItem('authToken')
         history('/')
     }
+  console.log(doctor)
 
   return (
     <div className='bg-white z-50 absolute h-auto min-h-screen xl:relative left-0 w-2/4 md:w-[350px]  shadow-xl  font-poppins rounded-r-2xl '>
@@ -49,7 +49,7 @@ export default function Sidebar() {
               
         {doctor?.user?.image ? (
           <img
-            src={`${BASE_URL}${doctor?.user?.image}`}
+            src={`${BASE_URL}${doctor.user.image}`}
             alt="profile-picture"
             className="rounded-full w-60 h-60 mx-auto mb-8"
           />
@@ -98,7 +98,7 @@ export default function Sidebar() {
         <span>Schedule Appointment</span>
       </NavLink>
     </li>
-    <li>
+    {/* <li>
       <NavLink
         to="viewslot"
         className="text-black hover:bg-gray-100 flex place-items-center"
@@ -106,7 +106,7 @@ export default function Sidebar() {
         <SlGraduation size={50} className="px-3" />
         <span>View Slots</span>
       </NavLink>
-    </li>
+    </li> */}
   </ul>
 </div>
 
@@ -123,10 +123,10 @@ export default function Sidebar() {
                 <h3 className='font-semibold'>Create Room</h3>
             </NavLink>
             <hr className="border-b-2 border-blue-gray-200 mt-4 mb-10"/>
-            <NavLink to="doctorprofile" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
+            {/* <NavLink to="doctorprofile" className={({isActive})=>(isActive ? ' bg-gray-500  rounded-xl flex place-items-center text-white my-2' : 'flex place-items-center bg-white-10 my-2')}>
                 <AiOutlineUser size={50} className='px-3 '></AiOutlineUser>
                 <h3 className='font-semibold '>profile</h3>
-            </NavLink>
+            </NavLink> */}
             <div className="flex place-items-center h-10 my-2 cursor-pointer" onClick={()=>{adminLogout()}}>
                 <CiLogout size={50} className='px-3 text-primaryBlue'></CiLogout>
                 <h3 className='font-semibold text-primaryBlue'>Logout</h3>

@@ -17,6 +17,8 @@ const ChatComponent = () => {
   const scroll = useRef();
   const socketRef = useRef(null);
 
+  console.log(messages, 'message')
+
   useEffect(() => {
     const localResponse = getLocal('authToken');
     const decodedToken = jwtDecode(localResponse);
@@ -38,6 +40,7 @@ const ChatComponent = () => {
       socketRef.current = new WebSocket(`ws://localhost:8000/ws/chat/${activeRoomId}/`);
 
       socketRef.current.onmessage = (event) => {
+        console.log(event.data, 'event');
         const message = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, message]);
       };
@@ -66,15 +69,15 @@ const ChatComponent = () => {
       room_id: activeRoomId,
     };
 
-    axios
-      .post(`${BASE_URL}/chat/rooms/${activeRoomId}/messages/`, messageData)
-      .then((response) => {
-        const newMessageData = response.data;
-        setMessages((prevMessages) => [...prevMessages, newMessageData]);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    // axios
+    //   .post(`${BASE_URL}/chat/rooms/${activeRoomId}/messages/`, messageData)
+    //   .then((response) => {
+    //     const newMessageData = response.data;
+    //     setMessages((prevMessages) => [...prevMessages, newMessageData]);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
 
     if (socketRef.current) {
       socketRef.current.send(JSON.stringify(messageData));

@@ -23,17 +23,18 @@ export default function UserAppointment() {
     getDoctor();
     getSlots();
   }, [date]);
-
+  
+console.log(id)
   async function getDoctor() {
     try {
-      const response = await axios.get(`${BASE_URL}/api/getDoctorUser/${id}`);
+      const response = await axios.get(`${BASE_URL}/api/getDoctorUser/${id}/`);
       setDoctor(response.data);
       getSlots(response.data.user?.id); // Pass the doctor's user ID to getSlots
     } catch (e) {
       console.log(e);
     }
   }
-
+ console.log(doctor)
   async function getSlots(id) {
     try {
       if (id) {

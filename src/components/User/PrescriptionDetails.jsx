@@ -1,30 +1,18 @@
 import React from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { saveAs } from 'file-saver';
-import { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer';
+import jsPDF from 'jspdf';
 
 function PrescriptionDetails({ prescription, setShowPrescription }) {
   const handleDownload = () => {
+    const pdf = new jsPDF();
+    pdf.text(`Doctor Name: ${prescription?.doctor?.user?.first_name}`, 10, 10);
+    pdf.text(`Patient Name: ${prescription?.patient?.first_name}`, 10, 20);
+    pdf.text(`Medication: ${prescription?.medication}`, 10, 30);
+    pdf.text(`Dosage: ${prescription?.dosage}`, 10, 40);
+    pdf.text(`Instructions: ${prescription?.instructions}`, 10, 50);
+    
     const filename = 'prescription.pdf';
-
-    // Create a PDF document
-    const PrescriptionDocument = () => (
-      <Document>
-        <Page>
-          <Text>Doctor Name: {prescription?.doctor?.user?.first_name}</Text>
-          <Text>Patient Name: {prescription?.patient?.first_name}</Text>
-          <Text>Medication: {prescription?.medication}</Text>
-          <Text>Dosage: {prescription?.dosage}</Text>
-          <Text>Instructions: {prescription?.instructions}</Text>
-        </Page>
-      </Document>
-    );
-
-    // Generate a blob from the PDF document
-    const blob = new Blob([<PrescriptionDocument />], { type: 'application/pdf' });
-
-    // Save the blob as a file
-    saveAs(blob, filename);
+    pdf.save(filename);
   };
 
   return (

@@ -9,6 +9,7 @@ import {
   Button,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/config';
+import { Link } from 'react-router-dom';
 
 function Card2() {
   const [doctors, setDoctors] = useState([]);
@@ -88,14 +89,9 @@ function Card2() {
                 </Typography>
               </CardBody>
               <CardFooter className="px-3">
-                <Button
-                  color="teal"
-                  variant="outline"
-                  fullWidth
-                  className="text-white"
-                >
-                  Book Now
-                </Button>
+              <Link to={`/userappointment/${doctor.id}`}>
+                  <button className="py-3 bg-teal-300 hover:bg-teal-600 w-full text-white">Book Now</button>
+                </Link>
               </CardFooter>
             </Card>
           ))}
