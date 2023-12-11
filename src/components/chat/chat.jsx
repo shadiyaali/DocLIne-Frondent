@@ -40,7 +40,7 @@ const ChatComponent = () => {
       socketRef.current = new WebSocket(`ws://localhost:8000/ws/chat/${activeRoomId}/`);
 
       socketRef.current.onmessage = (event) => {
-        console.log(event.data, 'event');
+        console.log(event, 'event');
         const message = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, message]);
       };
